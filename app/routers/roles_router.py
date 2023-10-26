@@ -2,7 +2,6 @@ from app import api
 from flask import request
 from flask_restx import Resource
 from flask_jwt_extended import jwt_required
-from http import HTTPStatus
 from app.controllers.roles_controller import RoleController
 from app.schemas.roles_schema import RoleRequestSchema
 
@@ -23,13 +22,13 @@ schema_request = RoleRequestSchema(role_ns)
 @role_ns.doc(security='Bearer')
 class Roles(Resource):
     #dispatch
-    
+    @jwt_required()
     def get(self):
         ''' Listar todos los roles '''
         controller = RoleController()
         return controller.fetch_all()
 
-    
+    @jwt_required()
     @role_ns.expect(schema_request.create(), validate=True)
     def post(self):
         ''' Creacion de un rol '''
