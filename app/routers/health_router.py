@@ -10,7 +10,7 @@ health_ns = api.namespace(
 )
 
 
-health_ns.route('')
+@health_ns.route('')
 class Healthcheck(Resource):
     def get(self):
         ''' Endpoint para comprobar la salud del proyecto'''
